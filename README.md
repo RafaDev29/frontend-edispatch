@@ -1,32 +1,31 @@
-Entiendo, gracias por la aclaración. Aquí está la versión corregida con Vue 3 y Vuetify:
+Aquí está la versión actualizada para el proyecto **eDispatch**, adaptada a tus necesidades:
 
 ---
 
-# FerroGest - Plataforma Web para la Gestión de Inventario de una Ferretería
+# eDispatch - Plataforma Web para la Gestión de Abastecimientos de Productos Líquidos
 
 ![Vue.js](https://vuejs.org/images/logo.png) ![Vuetify](https://cdn.vuetifyjs.com/images/logos/vuetify-logo-light.svg)
 
-**FerroGest** es una plataforma web diseñada para la gestión de inventario en una ferretería. Desarrollada con **Vue 3** y **Vuetify**, esta aplicación proporciona una interfaz moderna y eficiente para manejar el inventario de productos, proveedores, ventas y control de stock.
+**eDispatch** es una plataforma web diseñada para gestionar el abastecimiento de productos líquidos, como combustible. Desarrollada con **Vue 3** y **Vuetify**, esta aplicación proporciona una interfaz moderna y eficiente para controlar el suministro de productos, alimentada por datos provenientes de un aplicativo integrado con sistemas electrónicos.
 
-## Instalar todas las dependencias
+## Instalación de Dependencias
 ```
 npm install
 ```
 
-### Comando para arrancar el proyecto de manera local
+### Iniciar el Proyecto en Local
 ```
-vue serve 
+vue serve
 ```
 
-### Comando para generar el dist y desplegarlo en producción 
+### Generar el Dist y Desplegar en Producción
 ```
 npm run build
 ```
 
-### Personalizar la configuración
+### Personalización de la Configuración
 Para más detalles, consulta la [Referencia de Configuración](https://cli.vuejs.org/config).
 
----
+--- 
 
-## mockup de la plataforma
-<img src="./src/assets/README/imagen.png" alt="rafadev" style="width: 100%; height: auto;">
+Esta versión refleja el enfoque del proyecto eDispatch y su propósito en el ámbito de los suministros de productos líquidos.
