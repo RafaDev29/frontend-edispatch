@@ -24,12 +24,22 @@ export function listMasterApi(token) {
 }
 
 export function updateMasterApi(token, payload, id){
+    console.log(id)
     return axiosInstance.put(`${baseURL}/masters/update/${id}`, payload,{
         headers: {
             Authorization:`Bearer ${token}`
         }
     })
 }
+
+export function deleteMasterApi(token, id) {
+
+    return axiosInstance.delete(`${baseURL}/masters/delete/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 
 
 

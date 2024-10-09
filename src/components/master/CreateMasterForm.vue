@@ -59,12 +59,12 @@ export default {
 
       try {
         await createMasterApi(token, payload);
-        eventBus.emit('masterCreated', payload);
+        eventBus.emit('masterCreated');
         closeDialog(); 
       } catch (error) {
         console.error('Error al crear el master:', error);
       }
-    };
+    }; 
 
     return {
       dialog,

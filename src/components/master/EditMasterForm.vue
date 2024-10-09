@@ -47,7 +47,8 @@
   <script>
   import { ref, watch } from 'vue';
   import { updateMasterApi } from '@/api/MasterService';
-  
+  import store from '@/store'
+  import eventBus from '@/eventBus';
   export default {
     props: {
       master: {
@@ -57,7 +58,7 @@
     },
     emits: ['close'],
     setup(props, { emit }) {
-      const dialog = ref(true); // Controla la visibilidad del dialog
+      const dialog = ref(true); 
   
       const form = ref({
         username: '',
@@ -72,32 +73,33 @@
         () => props.master, // Observa los cambios en master
         (newMaster) => {
           if (newMaster) {
-            form.value = { ...newMaster }; // Carga los datos del master en el formulario
+            form.value = { ...newMaster };
           }
         },
         { immediate: true }
       );
   
-      // Cerrar el diálogo y emitir evento 'close' al padre
       const closeDialog = () => {
-        emit('close'); // Emitir evento para cerrar el modal
+        emit('close');
       };
   
       // Enviar los datos para actualizar el master
       const submitForm = async () => {
         try {
           const payload = {
-            masterId: props.master.masterId,
             username: form.value.username,
             password: form.value.password,
             name: form.value.name,
             identifier: form.value.identifier,
             logo: form.value.logo
           };
-          await updateMasterApi(payload); // Llamar al servicio de actualización
-          closeDialog(); // Cerrar el diálogo después de la actualización
+          const token = store.state.token
+          const id = form.value.masterId; 
+          await updateMasterApi(token, payload, id); 
+          eventBus.emit('masterCreated');
+          closeDialog(); 
         } catch (error) {
-          console.error('Error al actualizar el master:', error);
+          console.error('Error al actualizar el master:', error.message);
         }
       };
   
