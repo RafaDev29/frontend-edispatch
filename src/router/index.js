@@ -12,11 +12,11 @@ const router = createRouter({
             path: "/",
             component: () => import("@/layouts/MasterLayout.vue"),
             children: [
-                // {
-                //     name: "products",
-                //     path: "/products",
-                //     component: () => import("@/views/ProductView.vue"),
-                // },
+                 {
+                    name: "master",
+                    path: "/master",
+                 component: () => import("@/views/MasterView.vue"),
+                 },
             
        
             ]
@@ -46,22 +46,27 @@ router.beforeEach((to, from, next) => {
         next({ name: 'login' });
     } else if (to.name === 'login' && store.state.isAuthenticated) {
         // Si el usuario ya está autenticado y trata de acceder al login, redirigir según su rol
-        if (store.state.role === "administrador") {
-            next({ name: 'products' });
+        if (store.state.role === "ROOT") {
+            next({ name: 'master' });
            
-        } else if (store.state.role === "administrator") {
+        } else if (store.state.role === "MASTER") {
+
+            next({ name: 'master' });
+        }else if (store.state.role === "COMPANY") {
 
             next({ name: '' });
-        } else {
+        }else {
             next();
         }
     } else if (to.path === '/' && store.state.isAuthenticated) {
         // Si el usuario está autenticado y accede a la raíz, redirigir según su rol
-        if (store.state.role === "administrator") {
-            next({ name: 'products' });
-        } else if (store.state.role === "administratora") {
-            next({ name: 'products' });
-        } else {
+        if (store.state.role === "ROOT") {
+            next({ name: 'master' });
+        } else if (store.state.role === "MASTER") {
+            next({ name: '' });
+        } else if (store.state.role === "COMPANY") {
+            next({ name: '' });
+        }else {
             next();
         }
     } else {
