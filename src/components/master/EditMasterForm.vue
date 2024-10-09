@@ -10,27 +10,32 @@
             <v-text-field
               v-model="form.username"
               label="Nombre de Usuario"
+               prepend-icon="mdi-account"
               required
             ></v-text-field>
             <v-text-field
               v-model="form.password"
               label="Contraseña"
               type="password"
+               prepend-icon="mdi-lock"
               required
             ></v-text-field>
             <v-text-field
               v-model="form.name"
               label="Nombre del Master"
+               prepend-icon="mdi-account"
               required
             ></v-text-field>
             <v-text-field
               v-model="form.identifier"
               label="Identificador"
+               prepend-icon="mdi-key"
               required
             ></v-text-field>
             <v-text-field
               v-model="form.logo"
               label="Logo URL"
+               prepend-icon="mdi-image"
               required
             ></v-text-field>
   
@@ -96,9 +101,11 @@
           const token = store.state.token
           const id = form.value.masterId; 
           await updateMasterApi(token, payload, id); 
+          eventBus.emit('success', '¡Operación completada con éxito!');
           eventBus.emit('masterCreated');
           closeDialog(); 
         } catch (error) {
+            eventBus.emit('error', `Ups... hubo un error al editar el usuario:  ${ error.message}`);
           console.error('Error al actualizar el master:', error.message);
         }
       };

@@ -1,17 +1,18 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px" persistent>
     <v-card>
-      <v-card-title>
-        <span class="text-h5">Crear Nuevo Master</span>
-      </v-card-title>
+
+      <span class="text-h5 mp-2 mb-4 text-center">Crear Nuevo Master</span>
+
 
       <v-card-text>
         <v-form @submit.prevent="submitForm">
-          <v-text-field v-model="form.username" label="Nombre de Usuario" required></v-text-field>
-          <v-text-field v-model="form.password" label="Contraseña" type="password" required></v-text-field>
-          <v-text-field v-model="form.name" label="Nombre del Master" required></v-text-field>
-          <v-text-field v-model="form.identifier" label="Identificador" required></v-text-field>
-          <v-text-field v-model="form.logo" label="Logo URL" required></v-text-field>
+          <v-text-field v-model="form.username" label="Nombre de Usuario " prepend-icon="mdi-account"
+            required></v-text-field>
+          <v-text-field v-model="form.password" label="Contraseña" type="password" prepend-icon="mdi-lock" required></v-text-field>
+          <v-text-field v-model="form.name" label="Nombre del Master" prepend-icon="mdi-account" required></v-text-field>
+          <v-text-field v-model="form.identifier" label="Identificador" prepend-icon="mdi-key" required></v-text-field>
+          <v-text-field v-model="form.logo" label="Logo URL"  prepend-icon="mdi-camera" required></v-text-field>
 
           <v-card-actions class="justify-end">
             <v-btn text @click="closeDialog" color="#180c24">Cancelar</v-btn>
@@ -32,7 +33,7 @@ import store from '@/store';
 export default {
   emits: ['close'],
   setup(props, { emit }) {
-    const dialog = ref(true);  
+    const dialog = ref(true);
     const form = ref({
       username: '',
       password: '',
@@ -41,12 +42,12 @@ export default {
       logo: ''
     });
 
-   
+
     const closeDialog = () => {
-      emit('close');  
+      emit('close');
     };
 
-    
+
     const submitForm = async () => {
       const token = store.state.token;
       const payload = {
@@ -59,12 +60,14 @@ export default {
 
       try {
         await createMasterApi(token, payload);
+        eventBus.emit('success', '¡Operación completada con éxito!');
         eventBus.emit('masterCreated');
-        closeDialog(); 
+
+        closeDialog();
       } catch (error) {
         console.error('Error al crear el master:', error);
       }
-    }; 
+    };
 
     return {
       dialog,
@@ -76,6 +79,4 @@ export default {
 };
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
