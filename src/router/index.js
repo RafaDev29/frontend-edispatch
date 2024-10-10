@@ -32,7 +32,11 @@ const router = createRouter({
                     path: "/customers",
                  component: () => import("@/views/CustomerView.vue"),
                  },
-       
+                 {
+                    name: "billing",
+                    path: "/billing",
+                 component: () => import("@/views/BillingView.vue"),
+                 },
             ]
         },
         {
@@ -45,8 +49,8 @@ const router = createRouter({
         },
       
         {
-            path: '/:pathMatch(.*)*', // Cualquier ruta no especificada
-            redirect: '/login' // Redirigir a login
+            path: '/:pathMatch(.*)*', 
+            redirect: '/login' 
         }
     ]
 })

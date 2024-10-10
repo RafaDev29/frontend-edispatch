@@ -129,6 +129,13 @@
           value: "customers",
           to: "/customers",
           children: []
+        } ,
+        {
+          icon: "mdi mdi-card-bulleted-settings",
+          title: "Facturas",
+          value: "billing",
+          to: "/billing",
+          children: []
         } 
       ]);
   
@@ -161,7 +168,7 @@
         } else if (store.state.role === 'MASTER') {
           return ItemsNavegation.value.filter(item => item.value === 'company');
         }  else if (store.state.role === 'COMPANY') {
-          return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value=== 'customers');
+          return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value=== 'customers' || item.value==='billing');
         } else {
           return [];
         }
