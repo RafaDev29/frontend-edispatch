@@ -65,7 +65,8 @@ export default {
 
         closeDialog();
       } catch (error) {
-        console.error('Error al crear el master:', error);
+        eventBus.emit('error', `Ups... hubo un error al crear el usuario:  ${ error.message}`);
+     
       }
     };
 

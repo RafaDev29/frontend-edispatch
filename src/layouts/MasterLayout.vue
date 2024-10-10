@@ -104,9 +104,16 @@
       const ItemsNavegation = ref([
         {
           icon: "mdi mdi-toolbox",
-          title: "Usuarios Master",
+          title: "Administradores",
           value: "master",
           to: "/master",
+          children: []
+        }   ,
+        {
+          icon: "mdi mdi-domain",
+          title: "Compañias",
+          value: "company",
+          to: "/company",
           children: []
         }     
       ]);
@@ -136,9 +143,9 @@
   
       const filteredItems = computed(() => {
         if (store.state.role === 'ROOT') {
-          return ItemsNavegation.value.filter(item => item.value === 'master' );
+          return ItemsNavegation.value.filter(item => item.value === 'master'  );
         } else if (store.state.role === 'MASTER') {
-          return ItemsNavegation.value.filter(item => item.value === 'products');
+          return ItemsNavegation.value.filter(item => item.value === 'company');
         } else {
           return [];
         }

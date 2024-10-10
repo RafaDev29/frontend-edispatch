@@ -17,6 +17,11 @@ const router = createRouter({
                     path: "/master",
                  component: () => import("@/views/MasterView.vue"),
                  },
+                 {
+                    name: "company",
+                    path: "/company",
+                 component: () => import("@/views/CompanyView.vue"),
+                 },
             
        
             ]
@@ -51,10 +56,10 @@ router.beforeEach((to, from, next) => {
            
         } else if (store.state.role === "MASTER") {
 
-            next({ name: 'master' });
+            next({ name: 'company' });
         }else if (store.state.role === "COMPANY") {
 
-            next({ name: '' });
+            next({ name: 'company' });
         }else {
             next();
         }
@@ -63,9 +68,9 @@ router.beforeEach((to, from, next) => {
         if (store.state.role === "ROOT") {
             next({ name: 'master' });
         } else if (store.state.role === "MASTER") {
-            next({ name: '' });
+            next({ name: 'company' });
         } else if (store.state.role === "COMPANY") {
-            next({ name: '' });
+            next({ name: 'Company' });
         }else {
             next();
         }
