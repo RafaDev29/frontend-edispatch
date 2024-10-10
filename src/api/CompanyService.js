@@ -24,7 +24,7 @@ export function listCompanyApi(token) {
 }
 
 export function updateCompanyApi(token, payload, id){
-    console.log(id)
+
     return axiosInstance.put(`${baseURL}/companies/update/${id}`, payload,{
         headers: {
             Authorization:`Bearer ${token}`

@@ -122,6 +122,13 @@
           value: "cisterns",
           to: "/cisterns",
           children: []
+        } ,
+        {
+          icon: "mdi mdi-account-group",
+          title: "Clientes",
+          value: "customers",
+          to: "/customers",
+          children: []
         } 
       ]);
   
@@ -154,7 +161,7 @@
         } else if (store.state.role === 'MASTER') {
           return ItemsNavegation.value.filter(item => item.value === 'company');
         }  else if (store.state.role === 'COMPANY') {
-          return ItemsNavegation.value.filter(item => item.value === 'cisterns');
+          return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value=== 'customers');
         } else {
           return [];
         }
