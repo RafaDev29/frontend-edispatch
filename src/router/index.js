@@ -22,7 +22,11 @@ const router = createRouter({
                     path: "/company",
                  component: () => import("@/views/CompanyView.vue"),
                  },
-            
+                 {
+                    name: "cisterns",
+                    path: "/cisterns",
+                 component: () => import("@/views/CisternsView.vue"),
+                 },
        
             ]
         },
@@ -59,7 +63,7 @@ router.beforeEach((to, from, next) => {
             next({ name: 'company' });
         }else if (store.state.role === "COMPANY") {
 
-            next({ name: 'company' });
+            next({ name: 'cisterns' });
         }else {
             next();
         }
@@ -70,7 +74,7 @@ router.beforeEach((to, from, next) => {
         } else if (store.state.role === "MASTER") {
             next({ name: 'company' });
         } else if (store.state.role === "COMPANY") {
-            next({ name: 'Company' });
+            next({ name: 'cisterns' });
         }else {
             next();
         }

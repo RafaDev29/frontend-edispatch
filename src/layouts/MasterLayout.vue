@@ -115,7 +115,14 @@
           value: "company",
           to: "/company",
           children: []
-        }     
+        }, 
+        {
+          icon: "mdi-tanker-truck",
+          title: "Cisternas",
+          value: "cisterns",
+          to: "/cisterns",
+          children: []
+        } 
       ]);
   
       const router = useRoute();
@@ -138,7 +145,7 @@
         } else if (store.state.role === 'MASTER') {
           return 'Administrador';
         }
-        return '';
+        return 'COMPAÑIA';
       });
   
       const filteredItems = computed(() => {
@@ -146,6 +153,8 @@
           return ItemsNavegation.value.filter(item => item.value === 'master'  );
         } else if (store.state.role === 'MASTER') {
           return ItemsNavegation.value.filter(item => item.value === 'company');
+        }  else if (store.state.role === 'COMPANY') {
+          return ItemsNavegation.value.filter(item => item.value === 'cisterns');
         } else {
           return [];
         }
