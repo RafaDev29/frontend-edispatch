@@ -42,6 +42,11 @@ const router = createRouter({
                     path: "/driver",
                  component: () => import("@/views/DriversView.vue"),
                  },
+                 {
+                    name: "addressees",
+                    path: "/addressees",
+                 component: () => import("@/views/AddresseesView.vue"),
+                 },
             ]
         },
         {

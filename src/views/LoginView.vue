@@ -1,7 +1,7 @@
 <template>
   <div class="containerlogin relative flex items-start h-screen">
     <!-- Capa de color sobre la imagen de fondo -->
-    <div class="overlay absolute inset-0 bg-[#fc844c] opacity-50"></div>
+    <div class="overlay absolute inset-0 bg-[#fc844c] opacity-30"></div>
 
     <!-- Formulario alineado a la izquierda y ocupando toda la altura -->
     <div class="form-wrapper relative w-full sm:w-3/4 md:w-2/4 lg:w-1/4 h-full p-4 bg-[#130f23] text-white shadow-lg">
