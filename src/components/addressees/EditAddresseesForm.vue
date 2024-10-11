@@ -12,13 +12,10 @@
           <v-text-field v-model="form.phone" label="Teléfono" prepend-icon="mdi-phone" required></v-text-field>
           <v-text-field v-model="form.address" label="Dirección" prepend-icon="mdi-map" required></v-text-field>
 
-          <!-- v-select que muestra los nombres de clientes -->
           <v-select
-            v-model="form.customerId" 
-            :items="customers"        
-            label="Cliente"
-            item-text="name"           
-            item-value="customerId"    
+            v-model="selectedCustomerName"  
+            :items="customerNames"         
+            :label="form.customerName"
             prepend-icon="mdi mdi-account-group"
             required
           ></v-select>
@@ -34,7 +31,7 @@
 </template>
 
 <script>
-import { ref, watch } from 'vue';
+import { ref, watch , onMounted} from 'vue';
 import { updateAddresseesApi } from '@/api/AddresseesService';  // Mantengo el servicio que usas
 import { ListCustomersApi } from '@/api/CustomerService';      // Importar el servicio de clientes
 import store from '@/store';
@@ -50,42 +47,26 @@ export default {
   emits: ['close'],
   setup(props, { emit }) {
     const dialog = ref(true);
+    const customers = ref([]); 
+    const customerNames = ref([]); 
+    const selectedCustomerName = ref('');
     const form = ref({
       name: '',
       ubigeo: '',
       phone: '',
       address: '',
-      customerId: '',  
+      customerId: '',
     });
 
-    const customers = ref([]);  // Lista de clientes con name y customerId
+
+    
 
     // Actualizar el formulario con los datos de cisterns
     watch(
       () => props.cisterns,
-      async (newCisterns) => {
+      (newCisterns) => {
         if (newCisterns) {
           form.value = { ...newCisterns };
-
-          // Llamar al servicio para obtener la lista de clientes
-          const token = store.state.token;
-          try {
-            const response = await ListCustomersApi(token);  
-            customers.value = response.data.data.map(customer => ({
-              name: customer.name,         
-              customerId: customer.customerId,  
-            }));
-
-           
-            const selectedCustomer = customers.value.find(
-              (customer) => customer.customerId === form.value.customerId
-            );
-            if (selectedCustomer) {
-              form.value.customerId = selectedCustomer.customerId; 
-            }
-          } catch (error) {
-            eventBus.emit('error', `Error al cargar los clientes: ${error.message}`);
-          }
         }
       },
       { immediate: true }
@@ -95,7 +76,21 @@ export default {
       emit('close');
     };
 
+    
+
     const submitForm = async () => {
+
+      const selectedCustomer = customers.value.find(
+        (customer) => customer.name === selectedCustomerName.value
+      );
+
+      if (selectedCustomer) {
+        form.value.customerId = selectedCustomer.customerId; 
+      } else {
+        eventBus.emit('error', 'No se encontró el cliente seleccionado');
+        return;
+      }
+
       try {
         const payload = {
           name: form.value.name,
@@ -116,12 +111,30 @@ export default {
       }
     };
 
+    const fetchCustomers = async () => {
+      const token = store.state.token;
+      try {
+        const response = await ListCustomersApi(token);
+        customers.value = response.data.data;
+
+       
+        customerNames.value = customers.value.map(customer => customer.name);
+      } catch (error) {
+        eventBus.emit('error', `Error al cargar los clientes: ${error.message}`);
+      }
+    };
+
+    onMounted(() => {
+      fetchCustomers(); 
+    });
     return {
       dialog,
       form,
       closeDialog,
       submitForm,
-      customers,  // Lista de clientes traídos de la API
+      customers,
+      customerNames,
+      selectedCustomerName,
     };
   },
 };
