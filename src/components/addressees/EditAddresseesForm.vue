@@ -55,7 +55,7 @@ export default {
       ubigeo: '',
       phone: '',
       address: '',
-      customerId: '',  // Aquí se manejará el customerId seleccionado
+      customerId: '',  
     });
 
     const customers = ref([]);  // Lista de clientes con name y customerId
