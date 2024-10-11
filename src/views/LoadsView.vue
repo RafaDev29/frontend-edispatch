@@ -4,7 +4,7 @@
       <div>
         <div class="flex justify-between items-center mb-2 bg-gray-50 p-6 rounded-lg shadow-lg">
        
-                  <h1 class="font-bold lg:text-2xl text-xl text-indigo-900 " >      <span class="mdi mdi-card-bulleted-settings"></span> Mantenimiento de Cargas</h1>
+                  <h1 class="font-bold lg:text-2xl text-xl text-indigo-900 " >      <span class="mdi mdi-barrel"></span> Mantenimiento de Cargas</h1>
                   <button
                       class="flex items-center justify-center bg-[#ff8c54] text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-500 shadow-md"
                       @click="openCreateForm">
@@ -17,20 +17,20 @@
         <DataTable />
   
   
-        <CreateBillingForm v-if="isCreateFormVisible" @close="closeCreateForm" />
+        <CreateLoadForm v-if="isCreateFormVisible" @close="closeCreateForm" />
       </div>
     </div>
   </template>
   
   <script>
   import { ref } from 'vue';
-  import DataTable from '@/components/billing/DataTable.vue';
-  import CreateBillingForm from '@/components/billing/CreateBillingForm.vue';
+  import DataTable from '@/components/load/DataTable.vue';
+  import CreateLoadForm from '@/components/load/CreateLoadForm.vue';
   
   export default {
     components: {
       DataTable,
-      CreateBillingForm,
+      CreateLoadForm,
     },
     setup() {
       const isCreateFormVisible = ref(false);
