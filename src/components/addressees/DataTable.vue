@@ -4,6 +4,9 @@
             single-line></v-text-field>
 
         <v-data-table :headers="headers" :items="filteredItems" :search="search">
+            <template v-slot:[`item.customerId`]="{ item }">
+                <span>{{ getCustomerName(item.customerId) }}</span>
+            </template>
             <template v-slot:[`item.actions`]="{ item }">
                 <v-icon small class="mr-2" @click="openEditForm(item)">
                     mdi-pencil
@@ -14,8 +17,7 @@
             </template>
         </v-data-table>
 
-
-        <EditBillingForm v-if="isEditFormVisible" :cisterns="selectCisterns" @close="closeEditForm" />
+        <EditAddresseesForm v-if="isEditFormVisible" :cisterns="selectCisterns" @close="closeEditForm" />
     </v-card>
     <SuccessAlert />
     <ErrorAlert />
@@ -24,10 +26,11 @@
 
 <script>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import { ListAddresseesApi, deleteBillingApi } from '@/api/AddresseesService';
+import { ListAddresseesApi, deleteAddresseesApi } from '@/api/AddresseesService';
+import { ListCustomersApi } from '@/api/CustomerService';
 import store from '@/store';
 import eventBus from '@/eventBus';
-import EditBillingForm from '@/components/billing/EditBillingForm.vue'; 
+import EditAddresseesForm from '@/components/addressees/EditAddresseesForm.vue';
 import SuccessAlert from '@/components/alert/SuccessAlert.vue';
 import ErrorAlert from '@/components/alert/ErrorAlert.vue';
 import WarningAlert from '@/components/alert/WarningAlert.vue';
@@ -35,7 +38,7 @@ import WarningAlert from '@/components/alert/WarningAlert.vue';
 export default {
     name: 'DataTable',
     components: {
-        EditBillingForm,
+        EditAddresseesForm,
         SuccessAlert,
         ErrorAlert,
         WarningAlert,
@@ -43,18 +46,20 @@ export default {
     setup() {
         const search = ref('');
         const cisterns = ref([]);
+        const customers = ref([]);
         const token = store.state.token;
         const isEditFormVisible = ref(false);
         const selectCisterns = ref(null);
         const headers = ref([
-           
-            { key: 'description', title: 'Nombre de la Factura' , align: 'center' },
-         
+            { key: 'name', title: 'Nombre', align: 'center' },
+            { key: 'ubigeo', title: 'Ubigeo', align: 'center' },
+            { key: 'phone', title: 'Teléfono', align: 'center' },
+            { key: 'address', title: 'Dirección', align: 'center' },
+            { key: 'customerId', title: 'Cliente', align: 'center' },
             { key: 'actions', title: 'Acciones', sortable: false },
         ]);
 
-        
-        const fetchBilling = async () => {
+        const fetchAddressees = async () => {
             try {
                 const response = await ListAddresseesApi(token);
                 cisterns.value = response.data.data;
@@ -63,25 +68,37 @@ export default {
             }
         };
 
-        // Abrir el formulario de edición
+        const fetchCustomers = async () => {
+            try {
+                const response = await ListCustomersApi(token);
+                customers.value = response.data.data;
+            } catch (error) {
+                console.error('Error al obtener los customers:', error);
+            }
+        };
+
+        const getCustomerName = (customerId) => {
+            const customer = customers.value.find(c => c.customerId === customerId);
+            return customer ? customer.name : 'Desconocido';
+        };
+
         const openEditForm = (item) => {
             selectCisterns.value = item;
-            isEditFormVisible.value = true; // Muestra el formulario de edición
+            isEditFormVisible.value = true;
         };
 
-        // Cerrar el formulario de edición
         const closeEditForm = () => {
-            isEditFormVisible.value = false; // Oculta el formulario de edición
+            isEditFormVisible.value = false;
         };
 
-        // Llamada al servicio en onMounted
         onMounted(() => {
-            fetchBilling();
-            eventBus.on('masterCreated', fetchBilling);
+            fetchAddressees();
+            fetchCustomers();
+            eventBus.on('masterCreated', fetchAddressees);
         });
 
         onBeforeUnmount(() => {
-            eventBus.off('masterCreated', fetchBilling);
+            eventBus.off('masterCreated', fetchAddressees);
         });
 
         const filteredItems = computed(() => {
@@ -97,17 +114,17 @@ export default {
         });
 
         const deleteItem = (item) => {
-           const cisternId = item.billingId
-            const username= item.username
-            // Emitir una alerta de advertencia antes de eliminar
+            const cisternId = item.addresseeId;
+            const username = item.username;
+
             eventBus.emit('warning', {
                 msg: `¿Estás seguro de que deseas eliminar al usuario ${username}?`,
                 action: async () => {
                     try {
                         const token = store.state.token;
-                        await deleteBillingApi(token, cisternId); // Llamar al servicio de eliminación
+                        await deleteAddresseesApi(token, cisternId);
                         eventBus.emit('success', '¡Operación completada con éxito!');
-                        fetchBilling(); 
+                        fetchAddressees();
                     } catch (error) {
                         console.error('Error al eliminar el cisterns:', error);
                     }
@@ -124,11 +141,11 @@ export default {
             isEditFormVisible,
             selectCisterns,
             deleteItem,
+            getCustomerName,
         };
     },
 };
 </script>
 
 <style scoped>
-/* Estilos específicos para el componente de la tabla */
 </style>

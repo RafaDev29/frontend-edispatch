@@ -17,7 +17,7 @@
         <DataTable />
   
   
-        <CreateBillingForm v-if="isCreateFormVisible" @close="closeCreateForm" />
+        <CreateAddresseesForm v-if="isCreateFormVisible" @close="closeCreateForm" />
       </div>
     </div>
   </template>
@@ -25,12 +25,12 @@
   <script>
   import { ref } from 'vue';
   import DataTable from '@/components/addressees/DataTable.vue';
-  import CreateBillingForm from '@/components/billing/CreateBillingForm.vue';
+  import CreateAddresseesForm from '@/components/addressees/CreateAddresseesForm.vue';
   
   export default {
     components: {
       DataTable,
-      CreateBillingForm,
+      CreateAddresseesForm,
     },
     setup() {
       const isCreateFormVisible = ref(false);
