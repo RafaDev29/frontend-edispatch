@@ -136,6 +136,13 @@
           value: "billing",
           to: "/billing",
           children: []
+        } ,
+        {
+          icon: "mdi-steering",
+          title: "Contuctores",
+          value: "driver",
+          to: "/driver",
+          children: []
         } 
       ]);
   
@@ -168,7 +175,7 @@
         } else if (store.state.role === 'MASTER') {
           return ItemsNavegation.value.filter(item => item.value === 'company');
         }  else if (store.state.role === 'COMPANY') {
-          return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value=== 'customers' || item.value==='billing');
+          return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value=== 'customers' || item.value==='billing' || item.value==='driver');
         } else {
           return [];
         }

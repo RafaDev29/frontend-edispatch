@@ -37,6 +37,11 @@ const router = createRouter({
                     path: "/billing",
                  component: () => import("@/views/BillingView.vue"),
                  },
+                 {
+                    name: "driver",
+                    path: "/driver",
+                 component: () => import("@/views/DriversView.vue"),
+                 },
             ]
         },
         {
