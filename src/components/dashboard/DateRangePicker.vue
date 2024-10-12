@@ -62,7 +62,7 @@
   </template>
   
   <script>
-  import { ref } from 'vue';
+  import { ref, onMounted } from 'vue';
   import { format, startOfWeek, startOfMonth, startOfYear, endOfWeek, endOfMonth, endOfYear } from 'date-fns';
   import { useStore } from 'vuex'; // Importar la tienda Vuex
   import { ListDashboardApi } from '@/api/DashboardService'; // Importar el servicio
@@ -73,6 +73,13 @@
       const store = useStore(); // Usar la tienda Vuex
       const startDate = ref('');
       const endDate = ref('');
+  
+      // Establecer las fechas por defecto al cargar el componente
+      onMounted(() => {
+        const today = new Date();
+        startDate.value = format(today, 'yyyy-MM-dd');
+        endDate.value = format(today, 'yyyy-MM-dd');
+      });
   
       // Selección rápida de rangos de fecha
       const selectRange = (range) => {

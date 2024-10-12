@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white p-6 rounded-lg shadow">
-      <v-chart :option="chartOptions" style="height: 400px;" />
+    <div class="bg-white p-6 rounded-lg shadow overflow-hidden">
+      <v-chart :option="chartOptions" class="chart-container" />
     </div>
   </template>
   
@@ -20,7 +20,7 @@
     },
     props: {
       dispatchData: {
-        type: Object, // Cambiamos el tipo de dato esperado a Object
+        type: Object,
         required: true,
       },
     },
@@ -57,7 +57,6 @@
       watch(
         () => props.dispatchData,
         (newData) => {
-          // Asegurarnos de que estamos accediendo a los despachos en `newData.data`
           if (newData && newData.data) {
             const categories = newData.data.map((item) => item.idTicket); // Usamos idTicket como categoría en el eje X
             const gallonsData = newData.data.map((item) => item.gallons); // Cantidad de galones por despacho
@@ -77,5 +76,12 @@
   </script>
   
   <style scoped>
+  .chart-container {
+    width: 100%;
+    height: 100%;
+    min-height: 400px; /* Aseguramos una altura mínima */
+    max-width: 100%; /* Limita el ancho para evitar que se desborde */
+    overflow: hidden; /* Evita desbordamientos del contenido */
+  }
   </style>
   
