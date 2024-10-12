@@ -9,7 +9,8 @@
               <img :src="logoEdriver" class="w-[6rem] bg-[#ff8c54] rounded-md" />
             </div>
             <p v-if="!rail" class="font-bold text-2xl text-center w-full text-white">eDispatch
-              <span class="mdi mdi-hammer-wrench"></span>
+              <span class="mdi mdi-tanker-truck text-[#ff8c54]"></span>
+
             </p>
           </div>
         </div>
