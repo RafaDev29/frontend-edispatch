@@ -6,25 +6,34 @@
     <!-- Organizar en una fila de 3 columnas -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 
-           <!-- Tabla de resumen -->
-           <SummaryTable :dispatchData="{ data: dispatchData }" />
+      <!-- Tabla de resumen -->
+      <SummaryTable :dispatchData="{ data: dispatchData }" />
       <!-- Gráfico de barras -->
       <TotalGallonsChart :dispatchData="{ data: dispatchData }" />
 
       <!-- Gráfico de pastel -->
       <CisternGallonsPieChart :dispatchData="{ data: dispatchData }" />
 
- 
-    </div>
-    <!-- Gráfico de barras de tickets emitidos por día -->
-    <div class="mt-8">
-      <TicketsPerDayChart :dispatchData="{ data: dispatchData }" />
+
     </div>
 
-     <!-- Gráfico de Pareto de abastecimientos por mes -->
-     <div class="mt-8">
-      <ParetoChart :dispatchData="{ data: dispatchData }" />
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+
+      <div class="mt-8">
+        <TicketsPerDayChart :dispatchData="{ data: dispatchData }" />
+      </div>
+
+      <!-- Gráfico de Pareto de abastecimientos por mes -->
+      <div class="mt-8">
+        <ParetoChart :dispatchData="{ data: dispatchData }" />
+      </div>
     </div>
+
+    <div class="mt-8">
+      <HeatmapChart :dispatchData="{ data: dispatchData }" />
+    </div>
+    <!-- Gráfico de barras de tickets emitidos por día -->
+
   </div>
 </template>
 
@@ -36,6 +45,7 @@ import CisternGallonsPieChart from '@/components/dashboard/CisternGallonsPieChar
 import SummaryTable from '@/components/dashboard/SummaryTable.vue'
 import TicketsPerDayChart from '@/components/dashboard/TicketsPerDayChart.vue';
 import ParetoChart from '@/components/dashboard/ParetoChart.vue'
+import HeatmapChart from '@/components/dashboard/HeatmapChart.vue'; // Nuevo componente
 export default {
   components: {
     DateRangePicker,
@@ -43,20 +53,21 @@ export default {
     CisternGallonsPieChart,
     SummaryTable,
     TicketsPerDayChart,
-    ParetoChart
+    ParetoChart,
+    HeatmapChart
   },
   setup() {
-    const dispatchData = ref([]); 
+    const dispatchData = ref([]);
     const dateRangePicker = ref(null);
 
     const procesarDatos = (data) => {
       dispatchData.value = data.data;
     };
 
-   
+
     onMounted(() => {
       if (dateRangePicker.value) {
-        dateRangePicker.value.buscar(); 
+        dateRangePicker.value.buscar();
       }
     });
 
@@ -69,5 +80,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
