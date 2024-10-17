@@ -1,17 +1,29 @@
 <template>
   <div class="p-8 bg-gray-100 min-h-screen">
-  
-    <DateRangePicker @dataRecibida="procesarDatos" ref="dateRangePicker" />
+    <!-- Filtro DateRangePicker -->
+    <DateRangePicker @dataRecibida="procesarDatos" />
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-  
-      <DispatchesChart v-if="dispatchData.data && dispatchData.data.length" :dispatchData="dispatchData" />
+    <!-- Organizar en una fila de 3 columnas -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 
+           <!-- Tabla de resumen -->
+           <SummaryTable :dispatchData="{ data: dispatchData }" />
+      <!-- Gráfico de barras -->
+      <TotalGallonsChart :dispatchData="{ data: dispatchData }" />
 
-      <DispatchesPieChart v-if="dispatchData.data && dispatchData.data.length" :dispatchData="dispatchData" />
+      <!-- Gráfico de pastel -->
+      <CisternGallonsPieChart :dispatchData="{ data: dispatchData }" />
 
+ 
+    </div>
+    <!-- Gráfico de barras de tickets emitidos por día -->
+    <div class="mt-8">
+      <TicketsPerDayChart :dispatchData="{ data: dispatchData }" />
+    </div>
 
-      <DispatchesLineChart v-if="dispatchData.data && dispatchData.data.length" :dispatchData="dispatchData" />
+     <!-- Gráfico de Pareto de abastecimientos por mes -->
+     <div class="mt-8">
+      <ParetoChart :dispatchData="{ data: dispatchData }" />
     </div>
   </div>
 </template>
@@ -19,38 +31,41 @@
 <script>
 import { ref, onMounted } from 'vue';
 import DateRangePicker from '@/components/dashboard/DateRangePicker.vue';
-import DispatchesChart from '@/components/dashboard/DispatchesChart.vue';
-import DispatchesPieChart from '@/components/dashboard/DispatchesPieChart.vue';
-import DispatchesLineChart from '@/components/dashboard/DispatchesLineChart.vue'; 
-
+import TotalGallonsChart from '@/components/dashboard/TotalGallonsChart.vue';
+import CisternGallonsPieChart from '@/components/dashboard/CisternGallonsPieChart.vue'
+import SummaryTable from '@/components/dashboard/SummaryTable.vue'
+import TicketsPerDayChart from '@/components/dashboard/TicketsPerDayChart.vue';
+import ParetoChart from '@/components/dashboard/ParetoChart.vue'
 export default {
   components: {
     DateRangePicker,
-    DispatchesChart,
-    DispatchesPieChart,
-    DispatchesLineChart, 
+    TotalGallonsChart,
+    CisternGallonsPieChart,
+    SummaryTable,
+    TicketsPerDayChart,
+    ParetoChart
   },
   setup() {
-    const dispatchData = ref({}); 
+    const dispatchData = ref([]); 
     const dateRangePicker = ref(null);
 
     const procesarDatos = (data) => {
-      console.log('Datos recibidos:', data); 
-      dispatchData.value = data; 
+      dispatchData.value = data.data;
     };
 
-    
+   
     onMounted(() => {
-      dateRangePicker.value.selectRange('today'); 
-      dateRangePicker.value.buscar(); 
+      if (dateRangePicker.value) {
+        dateRangePicker.value.buscar(); 
+      }
     });
 
     return {
       dispatchData,
       procesarDatos,
-      dateRangePicker, 
+      dateRangePicker
     };
-  },
+  }
 };
 </script>
 

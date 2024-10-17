@@ -25,7 +25,7 @@
         <!-- Botón Buscar -->
         <button
           @click="buscar"
-          class="bg-[#ff8c54] text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-[#ff6a2c] transition duration-300 ease-in-out ml-4"
+          class="bg-[#ff8c54] text-white font-semibold px-4 py-2 rounded-lg shadow-md hover:bg-[#ff6a2c] transition duration-300 ease-in-out ml-4  mt-6"
         >
           Buscar
         </button>
