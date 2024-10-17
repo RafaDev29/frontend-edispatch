@@ -21,8 +21,9 @@
                     </v-list-item>
                     <v-list-item class="px-5">
                         <div class="cursor-pointer transition hover:text-blue-300
-                        ease-in duration-100 flex gap-2 rounded-lg items-center text-gray-400 text-sm">
-                            <i class="fa-solid fa-gear"></i>
+                        ease-in duration-100 flex gap-2 rounded-lg items-center text-gray-400 text-sm"   @click="openCreateForm">
+                            <i class="fa-solid fa-gear"> </i>
+                            
                             <span> Configuración</span>
                         </div>
                     </v-list-item>
@@ -39,10 +40,12 @@
                 </v-list>
             </v-card>
         </v-menu>
+        <SettingsForm v-if="isCreateFormVisible" @close="closeCreateForm"/>
     </div>
 </template>
 <script>
 import { ref } from "vue";
+import SettingsForm from "@/components/setting/SettingsForm.vue";
 
 export default {
     data: () => ({
@@ -51,7 +54,20 @@ export default {
         message: false,
         hints: true
     }),
+    components: {
+        SettingsForm,
+    },
     setup() {
+
+        const isCreateFormVisible = ref(false);
+  
+  const openCreateForm = () => {
+    isCreateFormVisible.value = true;
+  };
+
+  const closeCreateForm = () => {
+    isCreateFormVisible.value = false;
+  };
         const isRotated = ref(false);
 
         const rotateIcon = () => {
@@ -65,7 +81,10 @@ export default {
         return {
             logout,
             rotateIcon,
-            isRotated
+            isRotated,
+            isCreateFormVisible,
+        openCreateForm,
+        closeCreateForm,
         }
     }
 }

@@ -2,16 +2,13 @@
     <v-dialog v-model="dialog" max-width="600px" persistent>
       <v-card>
   
-        <span class="text-h5 mp-2 mb-4 text-center">Crear Nueva Cisterna</span>
+        <span class="text-h5 mp-2 mb-4 text-center">Crear Nueva Factura</span>
   
   
         <v-card-text>
           <v-form @submit.prevent="submitForm">
-            <v-text-field v-model="form.code" label="Código de cisterna" prepend-icon="mdi mdi-shield-check"
+            <v-text-field v-model="form.description" label="Nombre de factura" prepend-icon="mdi mdi-card"
               required></v-text-field>
-            <v-text-field v-model="form.plate" label="Placa"  prepend-icon="mdi-tanker-truck" required></v-text-field>
-            <v-text-field v-model="form.capacity" label="Capacidad" prepend-icon="mdi mdi-battery-80" required></v-text-field>
-            <v-text-field v-model="form.documentSeries" label="Documento asignado" prepend-icon="mdi-card" required></v-text-field>
            
   
             <v-card-actions class="justify-end">
@@ -26,7 +23,7 @@
   
   <script>
   import { ref } from 'vue';
-  import { createCisternsApi } from '@/api/CisternsService';
+  import { CreateBillingApi } from '@/api/BillingService';
   import eventBus from '@/eventBus';
   import store from '@/store';
   
@@ -35,10 +32,8 @@
     setup(props, { emit }) {
       const dialog = ref(true);
       const form = ref({
-        username: '',
-        capacity: '',
-        plate: '',
-        documentSeries: '',
+        description: '',
+
   
       });
   
@@ -51,15 +46,13 @@
       const submitForm = async () => {
         const token = store.state.token;
         const payload = {
-          code: form.value.code,
-          capacity: form.value.capacity,
-          plate: form.value.plate,
-          documentSeries: form.value.documentSeries,
+          description: form.value.description,
+        
         
         };
   
         try {
-          await createCisternsApi(token, payload);
+          await CreateBillingApi(token, payload);
           eventBus.emit('success', '¡Operación completada con éxito!');
           eventBus.emit('masterCreated');
   

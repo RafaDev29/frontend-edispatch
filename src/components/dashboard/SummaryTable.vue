@@ -78,8 +78,8 @@
             let ticketCount = 0;
   
             newData.data.forEach((item) => {
-              cisternSet.add(item.cistern.plate); // Agrupamos cisternas por plate
-              customerSet.add(item.customer.customerId); // Agrupamos clientes únicos
+              cisternSet.add(item.cistern.plate);
+              customerSet.add(item.customer.customerId); 
               gallonsCount += item.gallons; // Contamos los galones
               ticketCount += 1; // Contamos los tickets emitidos
             });

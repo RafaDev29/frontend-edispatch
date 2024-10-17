@@ -89,25 +89,30 @@
           case 'today':
             startDate.value = format(today, 'yyyy-MM-dd');
             endDate.value = format(today, 'yyyy-MM-dd');
+            buscar();
             break;
           case 'week':
             startDate.value = format(startOfWeek(today), 'yyyy-MM-dd');
             endDate.value = format(endOfWeek(today), 'yyyy-MM-dd');
+            buscar();
             break;
           case 'month':
             startDate.value = format(startOfMonth(today), 'yyyy-MM-dd');
             endDate.value = format(endOfMonth(today), 'yyyy-MM-dd');
+            buscar();
             break;
           case 'year':
             startDate.value = format(startOfYear(today), 'yyyy-MM-dd');
             endDate.value = format(endOfYear(today), 'yyyy-MM-dd');
+            buscar();
             break;
         }
       };
   
-      // Método para buscar datos y emitir la respuesta
+     
       const buscar = async () => {
-        const token = store.state.token; // Obtener el token del store
+        const token = store.state.token;
+        
         const payload = {
           dateFrom: startDate.value,
           dateTo: endDate.value,

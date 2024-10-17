@@ -17,7 +17,7 @@
         <DataTable />
   
   
-        <CreateBillingForm v-if="isCreateFormVisible" @close="closeCreateForm" />
+        <CreateBillingForm v-if="isCreateFormVisible" @close="closeCreateForm"/>
       </div>
     </div>
   </template>
@@ -26,6 +26,7 @@
   import { ref } from 'vue';
   import DataTable from '@/components/billing/DataTable.vue';
   import CreateBillingForm from '@/components/billing/CreateBillingForm.vue';
+  
   
   export default {
     components: {
