@@ -24,12 +24,12 @@
               required
             ></v-text-field>
 
-            <!-- Campo tipo booleano (checkbox) -->
-            <v-checkbox
+            <!-- Campo tipo booleano (switch) -->
+            <v-switch
               v-if="field.typeSettings === 3"
               :label="field.label"
               v-model="form[field.name]"
-            ></v-checkbox>
+            ></v-switch>
           </div>
 
           <v-card-actions class="justify-end">
