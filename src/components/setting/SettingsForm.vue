@@ -1,40 +1,64 @@
 <template>
   <v-dialog v-model="dialog" max-width="600px" persistent>
-    <v-card>
-      <span class="text-h5 mp-2 mb-4 text-center">Configuraciones</span>
-      
-      <v-card-text>
+    <v-card class="rounded-lg shadow-lg">
+      <v-card-title class="justify-center text-xl font-bold text-gray-700 bg-primary text-white">
+        Configuraciones
+      </v-card-title>
+
+      <v-card-text class="px-6 pt-4 pb-6 bg-gray-50">
         <v-form>
           <!-- Renderizamos campos dinámicos -->
-          <div v-for="(field, index) in fields" :key="index">
-            <!-- Campo tipo texto -->
-            <v-text-field
-              v-if="field.typeSettings === 2"
-              :label="field.label"
-              v-model="form[field.name]"
-              required
-            ></v-text-field>
+          <div v-for="(field, index) in fields" :key="index" class="mb-6">
+            <div class="flex items-center space-x-3">
+              <!-- Ícono -->
+              <v-icon class="text-primary">
+                {{ getIconForField(field.name) }}
+              </v-icon>
 
-            <!-- Campo tipo número -->
-            <v-text-field
-              v-if="field.typeSettings === 1"
-              :label="field.label"
-              v-model="form[field.name]"
-              type="number"
-              required
-            ></v-text-field>
+              <!-- Campo tipo texto -->
+              <v-text-field
+                v-if="field.typeSettings === 2"
+                :label="field.label"
+                v-model="form[field.name]"
+                class="rounded-md bg-white shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out w-full"
+                outlined
+                dense
+                clearable
+                required
+              ></v-text-field>
 
-            <!-- Campo tipo booleano (switch) -->
-            <v-switch
-              v-if="field.typeSettings === 3"
-              :label="field.label"
-              v-model="form[field.name]"
-            ></v-switch>
+              <!-- Campo tipo número -->
+              <v-text-field
+                v-if="field.typeSettings === 1"
+                :label="field.label"
+                v-model="form[field.name]"
+                type="number"
+                class="rounded-md bg-white shadow-sm hover:shadow-md transition-shadow duration-300 ease-in-out w-full"
+                outlined
+                dense
+                clearable
+                required
+              ></v-text-field>
+
+              <!-- Campo tipo booleano (switch) -->
+              <v-switch
+                v-if="field.typeSettings === 3"
+                :label="field.label"
+                v-model="form[field.name]"
+                inset
+                color="primary"
+                class="w-full"
+              ></v-switch>
+            </div>
           </div>
 
-          <v-card-actions class="justify-end">
-            <v-btn text @click="closeDialog" color="#180c24">Cancelar</v-btn>
-            <v-btn type="submit" color="#ff8c54">Guardar</v-btn>
+          <v-card-actions class="justify-between px-6">
+            <v-btn text @click="closeDialog" class="text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors duration-300">
+              Cancelar
+            </v-btn>
+            <v-btn color="primary" class="bg-primary text-white hover:bg-primary-dark transition-colors duration-300" @click="submitForm">
+              Guardar
+            </v-btn>
           </v-card-actions>
         </v-form>
       </v-card-text>
@@ -93,14 +117,51 @@ export default {
       getSettings();
     });
 
+    // Función para manejar el envío del formulario
+    const submitForm = () => {
+      // Aquí iría la lógica para enviar el formulario
+      console.log('Formulario enviado', form.value);
+    };
+
+    // Función para obtener el ícono según el nombre del campo
+    const getIconForField = (fieldName) => {
+      switch (fieldName) {
+        case 'nameCompany':
+          return 'mdi-domain';
+        case 'ruc':
+          return 'mdi-card-account-details';
+        case 'decimals':
+          return 'mdi-decimal';
+        case 'unit':
+          return 'mdi-cube-outline';
+        case 'product':
+          return 'mdi-package-variant';
+        case 'electronic':
+          return 'mdi-monitor';
+        case 'printGuide':
+          return 'mdi-printer';
+        default:
+          return 'mdi-help-circle';
+      }
+    };
+
     return {
       dialog,
       fields,
       form,
-      closeDialog
+      closeDialog,
+      submitForm,
+      getIconForField,
     };
-  }
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.bg-primary {
+  background-color: #ff8c54 !important;
+}
+.bg-primary-dark {
+  background-color: #ff6a30 !important;
+}
+</style>
