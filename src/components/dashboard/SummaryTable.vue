@@ -1,54 +1,55 @@
 <template>
-    <div class="bg-white p-6 rounded-lg shadow overflow-hidden">
-      <h2 class="text-center font-semibold mb-4">Tabla resumen</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <!-- Clientes abastecidos -->
-        <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
-          <div class="flex items-center">
-            <v-icon class="text-2xl text-[#2196F3]">mdi-account-group</v-icon>
-            <span class="ml-2 text-gray-700 font-medium">Clientes abastecidos</span>
-          </div>
-          <span class="font-semibold text-gray-700">{{ totalCustomers }}</span>
+  <div class="bg-white p-6 rounded-lg shadow overflow-hidden">
+    <h2 class="text-center font-semibold mb-4">Tabla resumen</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Clientes abastecidos -->
+      <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
+        <div class="flex items-center">
+          <v-icon class="text-2xl text-[#2196F3]">mdi-account-group</v-icon>
+          <span class="ml-2 text-gray-700 font-medium">Clientes abastecidos</span>
         </div>
-  
-        <!-- Cisternas en operación -->
-        <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
-          <div class="flex items-center">
-            <v-icon class="text-2xl text-[#4CAF50]">mdi-truck</v-icon>
-            <span class="ml-2 text-gray-700 font-medium">Cisternas en operación</span>
-          </div>
-          <span class="font-semibold text-gray-700">{{ totalCisterns }}</span>
+        <span class="font-semibold text-gray-700">{{ totalCustomers }}</span>
+      </div>
+
+      <!-- Cisternas en operación -->
+      <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
+        <div class="flex items-center">
+          <v-icon class="text-2xl text-[#4CAF50]">mdi-truck</v-icon>
+          <span class="ml-2 text-gray-700 font-medium">Cisternas en operación</span>
         </div>
-  
-        <!-- Galones abastecidos -->
-        <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
-          <div class="flex items-center">
-            <v-icon class="text-2xl text-[#FF9800]">mdi-gas-station</v-icon>
-            <span class="ml-2 text-gray-700 font-medium">Galones abastecidos</span>
-          </div>
-          <span class="font-semibold text-gray-700">{{ totalGallons }}</span>
+        <span class="font-semibold text-gray-700">{{ totalCisterns }}</span>
+      </div>
+
+      <!-- Galones abastecidos -->
+      <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
+        <div class="flex items-center">
+          <v-icon class="text-2xl text-[#FF9800]">mdi-gas-station</v-icon>
+          <span class="ml-2 text-gray-700 font-medium">Galones abastecidos</span>
         </div>
-  
-        <!-- Unidades abastecidas -->
-        <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
-          <div class="flex items-center">
-            <v-icon class="text-2xl text-[#9C27B0]">mdi-truck-delivery</v-icon>
-            <span class="ml-2 text-gray-700 font-medium">Unidades abastecidas</span>
-          </div>
-          <span class="font-semibold text-gray-700">{{ totalUnits }}</span>
+        <span class="font-semibold text-gray-700">{{ totalGallons }}</span>
+      </div>
+
+      <!-- Unidades abastecidas -->
+      <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
+        <div class="flex items-center">
+          <v-icon class="text-2xl text-[#9C27B0]">mdi-truck-delivery</v-icon>
+          <span class="ml-2 text-gray-700 font-medium">Unidades abastecidas</span>
         </div>
-  
-        <!-- Tickets emitidos -->
-        <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
-          <div class="flex items-center">
-            <v-icon class="text-2xl text-[#3F51B5]">mdi-ticket</v-icon>
-            <span class="ml-2 text-gray-700 font-medium">Tickets emitidos</span>
-          </div>
-          <span class="font-semibold text-gray-700">{{ totalTickets }}</span>
+        <span class="font-semibold text-gray-700">{{ totalUnits }}</span>
+      </div>
+
+      <!-- Tickets emitidos -->
+      <div class="flex items-center justify-between p-4 bg-[#f5faff] rounded-lg">
+        <div class="flex items-center">
+          <v-icon class="text-2xl text-[#3F51B5]">mdi-ticket</v-icon>
+          <span class="ml-2 text-gray-700 font-medium">Tickets emitidos</span>
         </div>
+        <span class="font-semibold text-gray-700">{{ totalTickets }}</span>
       </div>
     </div>
-  </template>
+  </div>
+</template>
+
   
   <script>
   import { defineComponent, ref, watch } from 'vue';
@@ -107,8 +108,13 @@
   </script>
   
   <style scoped>
-  .grid-cols-2 {
-    grid-template-columns: repeat(2, 1fr);
+  .grid-cols-1 {
+    grid-template-columns: 1fr;
+  }
+  @media (min-width: 640px) {
+    .grid-cols-2 {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
   </style>
   
