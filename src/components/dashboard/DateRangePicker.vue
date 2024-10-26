@@ -59,6 +59,7 @@
       </button>
     </div>
   </div>
+
 </template>
   
   <script>
@@ -66,8 +67,10 @@
   import { format, startOfWeek, startOfMonth, startOfYear, endOfWeek, endOfMonth, endOfYear } from 'date-fns';
   import { useStore } from 'vuex'; // Importar la tienda Vuex
   import { ListDashboardApi } from '@/api/DashboardService'; // Importar el servicio
-  
+
+  import eventBus from '@/eventBus';
   export default {
+  
     emits: ['dataRecibida'], // Declarar evento de emisión
     setup(props, { emit }) {
       const store = useStore(); // Usar la tienda Vuex
@@ -111,6 +114,7 @@
   
      
       const buscar = async () => {
+        eventBus.emit('loading', true);
         const token = store.state.token;
         
         const payload = {
@@ -119,12 +123,15 @@
         };
   
         try {
+          eventBus.emit('loading', true);
           const response = await ListDashboardApi(token, payload);
-          console.log('Datos recibidos:', response.data);
+         
           emit('dataRecibida', response.data); // Emitir los datos recibidos
         } catch (error) {
           console.error('Error al obtener datos:', error);
-        }
+        }finally {
+        eventBus.emit('loading', false); // Ocultar el cargando después de la respuesta
+      }
       };
   
       return {

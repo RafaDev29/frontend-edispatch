@@ -13,7 +13,7 @@
   <SuccessAlert />
   <ErrorAlert />
   <WarningAlert />
-
+  <LoadAlert />
 </template>
 
 <script>
@@ -26,12 +26,15 @@ import eventBus from '@/eventBus';
 import SuccessAlert from '@/components/alert/SuccessAlert.vue';
 import ErrorAlert from '@/components/alert/ErrorAlert.vue';
 import WarningAlert from '@/components/alert/WarningAlert.vue';
+import LoadAlert from '@/components/alert/LoadingAlert.vue'
+
 export default {
   components: {
     FormAuthVue,
     SuccessAlert,
     ErrorAlert,
     WarningAlert,
+    LoadAlert
   },
   setup() {
     const messageError = ref('');
@@ -41,6 +44,7 @@ export default {
 
     const onValidateLogin = async (data) => {
       try {
+        eventBus.emit('loading', true);
         const response = await authLoginApi(data);
         const user = response.data.data;
         const token = response.data.data;
@@ -51,17 +55,19 @@ export default {
         eventBus.emit('success', 'Credenciales correctas');
         setTimeout(() => {
           router.push('/');
-        }, 1000); 
+        }, 1000);
 
 
       } catch (error) {
         statusError.value = true;
 
-
         if (error.response) {
 
           if (error.response.status === 400) {
-            eventBus.emit('error', 'Las credenciales del usuario no son válidas');
+
+            eventBus.emit('error', 'Usuario no encontrado');
+
+
 
           } else if (error.response.status === 500) {
             eventBus.emit('error', 'Error 500: Error interno del servidor');
@@ -76,6 +82,8 @@ export default {
           eventBus.emit('error', `Error al configurar la solicitud: ${error.message} `);
 
         }
+      } finally {
+        eventBus.emit('loading', false); // Ocultar el cargando después de la respuesta
       }
     };
 

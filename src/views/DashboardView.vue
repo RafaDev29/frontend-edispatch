@@ -35,6 +35,7 @@
     <!-- Gráfico de barras de tickets emitidos por día -->
 
   </div>
+  <LoadAlert/>
 </template>
  
 <script>
@@ -46,6 +47,8 @@ import SummaryTable from '@/components/dashboard/SummaryTable.vue'
 import TicketsPerDayChart from '@/components/dashboard/TicketsPerDayChart.vue';
 import ParetoChart from '@/components/dashboard/ParetoChart.vue'
 import HeatmapChart from '@/components/dashboard/HeatmapChart.vue'; // Nuevo componente
+import LoadAlert from '@/components/alert/LoadingAlert.vue'
+
 export default {
   components: {
     DateRangePicker,
@@ -54,7 +57,8 @@ export default {
     SummaryTable,
     TicketsPerDayChart,
     ParetoChart,
-    HeatmapChart
+    HeatmapChart,
+    LoadAlert
   },
   setup() {
     const dispatchData = ref([]);
