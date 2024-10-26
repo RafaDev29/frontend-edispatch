@@ -10,6 +10,10 @@
       </div>
     </div>
   </div>
+  <SuccessAlert />
+  <ErrorAlert />
+  <WarningAlert />
+
 </template>
 
 <script>
@@ -18,10 +22,16 @@ import { useRouter, useRoute } from 'vue-router';
 import FormAuthVue from '@/components/login/FormAuth.vue';
 import { authLoginApi } from '@/api/LoginService';
 import store from '@/store';
-
+import eventBus from '@/eventBus';
+import SuccessAlert from '@/components/alert/SuccessAlert.vue';
+import ErrorAlert from '@/components/alert/ErrorAlert.vue';
+import WarningAlert from '@/components/alert/WarningAlert.vue';
 export default {
   components: {
     FormAuthVue,
+    SuccessAlert,
+    ErrorAlert,
+    WarningAlert,
   },
   setup() {
     const messageError = ref('');
@@ -38,22 +48,33 @@ export default {
         store.commit('setToken', token.token);
         store.commit('setRole', user.role);
         store.commit('setIsAuthenticated', true);
+        eventBus.emit('success', 'Credenciales correctas');
+        setTimeout(() => {
+          router.push('/');
+        }, 1000); 
 
-        router.push('/');
+
       } catch (error) {
         statusError.value = true;
+
+
         if (error.response) {
-          if (error.response.status === 401) {
-            messageError.value = 'Las credenciales de usuario no son válidas';
+
+          if (error.response.status === 400) {
+            eventBus.emit('error', 'Las credenciales del usuario no son válidas');
+
           } else if (error.response.status === 500) {
-            messageError.value = 'Error 500: Error interno del servidor';
+            eventBus.emit('error', 'Error 500: Error interno del servidor');
+            messageError.value = '';
           } else {
-            messageError.value = error.response.data.message;
+            eventBus.emit('error', `${error.response.data.message}`);
           }
         } else if (error.request) {
-          messageError.value = 'No se recibió respuesta del servidor';
+          eventBus.emit('error', 'No se recibió respuesta del servidor');
+
         } else {
-          messageError.value = 'Error al configurar la solicitud:', error.message;
+          eventBus.emit('error', `Error al configurar la solicitud: ${error.message} `);
+
         }
       }
     };

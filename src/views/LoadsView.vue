@@ -1,58 +1,58 @@
 <template>
 
-    <div class="pt-0 mt-0 pb-10 ml-0 mr-0 min-w-max[100%]">
-      <div>
-        <div class="flex justify-between items-center mb-2 bg-gray-50 p-6 rounded-lg shadow-lg">
-       
-                  <h1 class="font-bold lg:text-2xl text-xl text-indigo-900 " >      <span class="mdi mdi-barrel"></span> Mantenimiento de Cargas</h1>
-                  <button
-                      class="flex items-center justify-center bg-[#ff8c54] text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-500 shadow-md"
-                      @click="openCreateForm">
-                      Crear +
-                  </button>
-              </div>
-  
-  
-  
-        <DataTable />
-  
-  
-        <CreateLoadForm v-if="isCreateFormVisible" @close="closeCreateForm" />
+  <div class="pt-0 mt-0 pb-10 ml-0 mr-0 min-w-max[100%]">
+    <div>
+      <div class="flex justify-between items-center mb-2 bg-gray-50 p-6 rounded-lg shadow-lg">
+
+        <h1 class="font-bold lg:text-2xl text-xl text-indigo-900 "> <span class="mdi mdi-barrel"></span> Mantenimiento
+          de Cargas</h1>
+        <button
+          class="flex items-center justify-center bg-[#ff8c54] text-white font-semibold px-5 py-2 rounded-lg hover:bg-orange-500 shadow-md"
+          @click="openCreateForm">
+          Crear +
+        </button>
       </div>
+
+
+
+      <DataTable />
+
+
+      <CreateLoadForm v-if="isCreateFormVisible" @close="closeCreateForm" />
     </div>
-  </template>
-  
-  <script>
-  import { ref } from 'vue';
-  import DataTable from '@/components/load/DataTable.vue';
-  import CreateLoadForm from '@/components/load/CreateLoadForm.vue';
-  
-  export default {
-    components: {
-      DataTable,
-      CreateLoadForm,
-    },
-    setup() {
-      const isCreateFormVisible = ref(false);
-  
-      const openCreateForm = () => {
-        isCreateFormVisible.value = true;
-      };
-  
-      const closeCreateForm = () => {
-        isCreateFormVisible.value = false;
-      };
-  
-      return {
-        isCreateFormVisible,
-        openCreateForm,
-        closeCreateForm,
-      };
-    }
-  };
-  </script>
-  
-  <style scoped>
-  /* Estilos específicos para esta vista si es necesario */
-  </style>
-  
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+import DataTable from '@/components/load/DataTable.vue';
+import CreateLoadForm from '@/components/load/CreateLoadForm.vue';
+
+export default {
+  components: {
+    DataTable,
+    CreateLoadForm,
+  },
+  setup() {
+    const isCreateFormVisible = ref(false);
+
+    const openCreateForm = () => {
+      isCreateFormVisible.value = true;
+    };
+
+    const closeCreateForm = () => {
+      isCreateFormVisible.value = false;
+    };
+
+    return {
+      isCreateFormVisible,
+      openCreateForm,
+      closeCreateForm,
+    };
+  }
+};
+</script>
+
+<style scoped>
+/* Estilos específicos para esta vista si es necesario */
+</style>
