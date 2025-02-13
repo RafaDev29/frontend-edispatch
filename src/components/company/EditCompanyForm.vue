@@ -1,7 +1,7 @@
 <template>
     <v-dialog v-model="dialog" max-width="600px" persistent>
       <v-card>
-        <v-card-title>
+        <v-card-title class="text-center">
           <span class="text-h5">Editar Master</span>
         </v-card-title>
   

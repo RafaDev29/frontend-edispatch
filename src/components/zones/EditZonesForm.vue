@@ -1,15 +1,33 @@
 <template>
     <v-dialog v-model="dialog" max-width="600px" persistent>
       <v-card>
-        <v-card-title>
-          <span class="text-h5">Editar Cisterna</span>
+        <v-card-title class="text-center">
+          <span class="text-h5">Editar Zona</span>
         </v-card-title>
   
         <v-card-text>
           <v-form @submit.prevent="submitForm">
             <v-text-field
+              v-model="form.name"
+              label="Nombre"
+               prepend-icon="mdi mdi-shield-check"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="form.code"
+              label="Código "
+               prepend-icon="mdi mdi-shield-check"
+              required
+            ></v-text-field>
+            <v-text-field
+              v-model="form.zipCode"
+              label="Código postal"
+               prepend-icon="mdi mdi-shield-check"
+              required
+            ></v-text-field>
+            <v-text-field
               v-model="form.description"
-              label="Código de cisterna"
+              label="Descripción"
                prepend-icon="mdi mdi-shield-check"
               required
             ></v-text-field>
@@ -66,7 +84,11 @@
       const submitForm = async () => {
         try {
           const payload = {
+            name: form.value.name,
+            code: form.value.code,
+            zipCode: form.value.zipCode,
             description: form.value.description,
+            
        
           };
           const token = store.state.token

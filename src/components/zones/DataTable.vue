@@ -27,7 +27,7 @@ import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { ListZonesApi, deleteZonesApi } from '@/api/ZonesService';
 import store from '@/store';
 import eventBus from '@/eventBus';
-import EditBillingForm from '@/components/billing/EditBillingForm.vue'; 
+import EditBillingForm from '@/components/zones/EditZonesForm.vue'; 
 import SuccessAlert from '@/components/alert/SuccessAlert.vue';
 import ErrorAlert from '@/components/alert/ErrorAlert.vue';
 import WarningAlert from '@/components/alert/WarningAlert.vue';
@@ -101,9 +101,8 @@ export default {
         });
 
         const deleteItem = (item) => {
-           const cisternId = item.billingId
+           const cisternId = item.zoneId
             const username= item.username
-            // Emitir una alerta de advertencia antes de eliminar
             eventBus.emit('warning', {
                 msg: `¿Estás seguro de que deseas eliminar al usuario ${username}?`,
                 action: async () => {
