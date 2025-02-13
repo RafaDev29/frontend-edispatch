@@ -98,7 +98,7 @@ export default {
     const dialogLoader = ref(false);
 
     const ItemsNavegation = ref([
-    {
+      {
         icon: "mdi mdi-chart-bar",
         title: "Dashboard",
         value: "dashboard",
@@ -243,7 +243,7 @@ export default {
       } else if (store.state.role === 'MASTER') {
         return ItemsNavegation.value.filter(item => item.value === 'company');
       } else if (store.state.role === 'COMPANY') {
-        return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value === 'customers' || item.value === 'billing' || item.value === 'driver' || item.value === 'addressees' || item.value === 'supplier' || item.value === 'load' || item.value === 'zones' || item.value === 'report' || item.value==='dashboard');
+        return ItemsNavegation.value.filter(item => item.value === 'cisterns' || item.value === 'customers' || item.value === 'billing' || item.value === 'driver' || item.value === 'addressees' || item.value === 'supplier' || item.value === 'load' || item.value === 'zones' || item.value === 'report' || item.value === 'dashboard');
       } else {
         return [];
       }

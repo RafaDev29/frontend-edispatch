@@ -1,7 +1,7 @@
 <template>
     <v-card flat>
         <v-text-field v-model="search" label="Buscar" prepend-inner-icon="mdi-magnify" variant="outlined" hide-details
-            single-line></v-text-field>
+            single-line density="compact"  class="mb-2"></v-text-field>
 
         <v-data-table :headers="headers" :items="filteredItems" :search="search">
             <template v-slot:[`item.actions`]="{ item }">
@@ -13,8 +13,6 @@
                 </v-icon>
             </template>
         </v-data-table>
-
-
         <EditCisternsForm v-if="isEditFormVisible" :cisterns="selectCisterns" @close="closeEditForm" />
     </v-card>
     <SuccessAlert />

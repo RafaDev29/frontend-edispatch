@@ -9,6 +9,8 @@
           <v-form @submit.prevent="submitForm">
             <v-text-field v-model="form.name" label="Nombre" prepend-icon="mdi mdi-rename-box" required></v-text-field>
             <v-text-field v-model="form.lastName" label="Apellidos" prepend-icon="mdi mdi-account-box" required></v-text-field>
+            <v-text-field v-model="form.document" label="Documento" prepend-icon="mdi mdi-card-account-details-outline" required></v-text-field>
+
             <v-text-field v-model="form.licenseNumber" label="Licencia" prepend-icon="mdi mdi-card-account-details-outline" required></v-text-field>
             <v-text-field v-model="form.username" label="Usuario" prepend-icon="mdi mdi-account-circle-outline" required></v-text-field>
             <v-text-field v-model="form.password" label="Contraseña" type="password" prepend-icon="mdi-key" required></v-text-field>
@@ -58,6 +60,7 @@
           name: form.value.name,
         lastName : form.value.lastName,
         licenseNumber : form.value.licenseNumber,
+        document : form.value.document, 
         username: form.value.username,
         password: form.value.password
         

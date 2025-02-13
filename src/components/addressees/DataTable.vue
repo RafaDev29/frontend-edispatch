@@ -1,7 +1,7 @@
 <template>
     <v-card flat>
         <v-text-field v-model="search" label="Buscar" prepend-inner-icon="mdi-magnify" variant="outlined" hide-details
-            single-line></v-text-field>
+            single-line density="compact"></v-text-field>
 
         <v-data-table :headers="headers" :items="filteredItems" :search="search">
  

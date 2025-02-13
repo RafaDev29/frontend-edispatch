@@ -1,7 +1,7 @@
 <template>
     <v-card flat>
         <v-text-field v-model="search" label="Buscar" prepend-inner-icon="mdi-magnify" variant="outlined" hide-details
-            single-line></v-text-field>
+            single-line density="compact" ></v-text-field>
 
         <v-data-table :headers="headers" :items="filteredItems" :search="search">
             <template v-slot:[`item.actions`]="{ item }">
@@ -68,18 +68,15 @@ export default {
             }
         };
 
-        // Abrir el formulario de edición
         const openEditForm = (item) => {
             selectCisterns.value = item;
             isEditFormVisible.value = true; 
         };
 
-        // Cerrar el formulario de edición
         const closeEditForm = () => {
-            isEditFormVisible.value = false; // Oculta el formulario de edición
+            isEditFormVisible.value = false; 
         };
 
-        // Llamada al servicio en onMounted
         onMounted(() => {
             fetchCustomers();
             eventBus.on('masterCreated', fetchCustomers);
@@ -102,18 +99,20 @@ export default {
         });
 
         const deleteItem = (item) => {
-           const cisternId = item.cisternId
+            console.log(item)
+           const customerId = item.customerId
             const username= item.username
-            // Emitir una alerta de advertencia antes de eliminar
             eventBus.emit('warning', {
                 msg: `¿Estás seguro de que deseas eliminar al usuario ${username}?`,
                 action: async () => {
                     try {
                         const token = store.state.token;
-                        await deleteCustomerApi(token, cisternId);
+                        await deleteCustomerApi(token, customerId);
                         eventBus.emit('success', '¡Operación completada con éxito!');
                         fetchCustomers(); 
                     } catch (error) {
+                        const errorMessage = error.response?.data?.message || error.response?.data || 'Error al eliminar.';
+                        eventBus.emit('error', errorMessage);
                         console.error('Error al eliminar el cisterns:', error);
                     }
                 }

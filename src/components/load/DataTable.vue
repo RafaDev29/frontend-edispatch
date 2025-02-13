@@ -13,8 +13,6 @@
                 </v-icon>
             </template>
         </v-data-table>
-
-
         <EditLoadForm v-if="isEditFormVisible" :cisterns="selectCisterns" @close="closeEditForm" />
     </v-card>
     <SuccessAlert />
@@ -47,10 +45,11 @@ export default {
         const isEditFormVisible = ref(false);
         const selectCisterns = ref(null);
         const headers = ref([
+        { key: 'date', title: 'Fecha de la carga' , align: 'center' },
+        { key: 'cisternName', title: 'Cisterna' , align: 'center' },
+            { key: 'amount', title: 'Cantidad' , align: 'center' },
            
-            { key: 'gallons', title: 'Cantidad' , align: 'center' },
-            { key: 'date', title: 'Fecha de la carga' , align: 'center' },
-            { key: 'description', title: 'Cisterna' , align: 'center' },
+          
             { key: 'actions', title: 'Acciones', sortable: false },
         ]);
 
