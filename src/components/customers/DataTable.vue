@@ -50,7 +50,7 @@ export default {
         { key: 'code', title: 'Código' },
             { align: 'start', key: 'name', sortable: false, title: 'Nombre' },
 
-            { key: 'document', title: 'Documento' },
+            { key: 'document', title: 'RUC' },
             { key: 'business', title: 'Razón Social', sortable: false },
             { key: 'address', title: 'Dirección', sortable: false },
             { key: 'email', title: 'Correo', sortable: false },

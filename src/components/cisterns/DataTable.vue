@@ -48,7 +48,7 @@ export default {
             { align: 'start', key: 'code', sortable: false, title: 'Código de cisterna' },
             { key: 'plate', title: 'Placa' },
             { key: 'capacity', title: 'Capacitad' },
-            { key: 'documentSeries', title: 'Documento', sortable: false },
+            { key: 'documentSeries', title: 'Serie de Documento', sortable: false },
             { key: 'actions', title: 'Acciones', sortable: false },
         ]);
 
